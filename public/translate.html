@@ -7,6 +7,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular.min.js"></script>
 </head>
 <body ng-controller="translateController">
+<form method= "get" action='/quiz'>
+<input type="submit">
+</form>
    <h1>Translation Application</h1>
    
    <form ng-submit = "submit()">
@@ -16,7 +19,7 @@
        <input type="submit">
    </form>
 
-   {{finishedWord}}
+   {{translatedWord}}
 
 
     

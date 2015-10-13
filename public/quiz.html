@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html ng-app="translateApp">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Page</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular.min.js"></script>
+</head>
+
+<body ng-controller="translateController">
+   
+<p>What language do you want to study?</p>
+
+<select ng-model = "langSelect">
+	<option value="es">Spanish</option>
+	<option value="de">German</option>
+	<option value="fr">French</option>
+</select>
+
+<ul ng-repeat = "word in wordsToTranslate">
+<li> {{ word }}  <input type="text" ng-model = "answer[$index]" ><button ng-click = "answersSubmit($index)">submit</button></li>
+</ul>
+
+    
+<script src="main.js"></script>
+</body>
+</html>
+
+
+<!-- 10 Words to Translate:
+cat
+dog
+computer
+sock
+beard
+tall
+market
+orange
+wednesday
+ten -->
+
+<!-- 
+[{
+	word: cat
+	es: 
+	fr: chat
+	ru
+}] -->

@@ -18,15 +18,30 @@ app.get('/', function(req, res){
   res.sendFile("translate.html", {root: './public'})
 });
 
+app.get('/quiz', function(req, res){
+  res.sendFile("quiz.html", {root: './public'})
+});
+
 // app.post('/submit', translapp.translateFunc);
 
 app.post('/submit', function(req, res) {
 	console.log(req.body)
 	googleTranslate.translate(req.body.word, req.body.trLanguage, function(err, translation) {
   	console.log(translation.translatedText);
-  // =>  Mi nombre es Brandon
-});
+  	res.send(translation.translatedText)
+	});
 })
+
+app.post('/checkanswer', function(req, res) {
+	googleTranslate.translate(req.body.word, req.body.endlang, function(err, translation) {
+  	console.log(translation.translatedText);
+  	res.send(translation.translatedText)
+	});
+
+
+})
+
+
 
 
 
