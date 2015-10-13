@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
 
-var translapp = require('./Controller/servercontroller.js');
+// var translapp = require('./Controller/servercontroller.js');
 
 // Routes \\
 app.get('/', function(req, res){
@@ -25,7 +25,7 @@ app.get('/quiz', function(req, res){
 // app.post('/submit', translapp.translateFunc);
 
 app.post('/submit', function(req, res) {
-	console.log(req.body)
+	// console.log(req.body)
 	googleTranslate.translate(req.body.word, req.body.trLanguage, function(err, translation) {
   	console.log(translation.translatedText);
   	res.send(translation.translatedText)

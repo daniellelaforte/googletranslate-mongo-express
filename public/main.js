@@ -8,6 +8,7 @@ angular.module('translateApp')
 
         
     var wrongCount = 0 
+    var charCounter = 0
     //$scope.submissions =[];
     $scope.submit = function () {
 
@@ -42,9 +43,25 @@ angular.module('translateApp')
 
         $http.post('/checkanswer', submissionobj)
         .then(function(returnData) { 
+
+            // console.log(returnData.data[1])
+            // console.log($scope.answer[index][1])
+            for (var i = 0; i < returnData.data.length; i++) {
+                if(returnData.data[i] != $scope.answer[index][i]) {
+                    charCounter++
+                    console.log(charCounter)
+                }
+
+            }
+
+
             if($scope.answer[index] == returnData.data) {
+                alert('BOOM GOES THE DYNAMITE. You got that one right')
                 console.log('correcto')
-            } else {
+            } else if (charCounter == 1) {
+                alert('mostly right, you were one character off. The correct word was ' + returnData.data)
+            } 
+            else {
                 console.log('incorrecto')
                 alert('WRONG. The right answer was ' + returnData.data)
                 wrongCount++
@@ -54,6 +71,7 @@ angular.module('translateApp')
                 }
             }
         })
+    charCounter = 0
     }
         // if ($scope.langSelect == 'es') {
         //     console.log($scope.answer)
