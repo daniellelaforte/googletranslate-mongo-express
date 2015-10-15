@@ -1,15 +1,12 @@
-// var videoarray = [];
+var mongoose = require('mongoose')
 
-// var  = function (videoobject) {
-// 	this.name = videoobject.name;
-// 	this.url = videoobject.url;
-// 	this.desc = videoobject.desc;
-// 	this.votes = 0;
-// 	videoarray.push(this);
-// }
+var resultSchema = mongoose.Schema({
+
+	totalpassed        : {type : Number},
+	totalfailed       : {type : Number}, 
+	bestten             : {type : Array},
+	worstten             : {type : Array}
+})
 
 
-// module.exports = {
-// 	videoarray : videoarray,
-// 	video : video
-// }
+ module.exports = mongoose.model('Result', resultSchema)

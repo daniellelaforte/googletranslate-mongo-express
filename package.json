@@ -11,6 +11,7 @@
   "dependencies": {
     "express": "~4.13.3",
     "body-parser": "~1.14.1",
-    "google-translate": "~1.0.0"
+    "google-translate": "~1.0.0",
+    "mongoose": "~4.1.11"
   }
 }

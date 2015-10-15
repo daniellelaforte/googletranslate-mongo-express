@@ -4,11 +4,30 @@ angular.module('translateApp')
     .controller('translateController', ['$scope', '$http', function($scope, $http){
        
 
-       
+    var totalpass = 0
+    var totalfail = 0
+    var best10 = []
+    var worst10 = []
+    var statobj = {}
+    var id = undefined;
+
 
         
     var wrongCount = 0 
     var charCounter = 0
+
+    $scope.reset = function () {
+         $http.post('/reset')
+        .then(function(returnData) { 
+            console.log(returnData)
+
+            $scope.totalwordsright = ""
+            $scope.totalwordswrong = ""
+            $scope.wordsright = ""
+            $scope.wordswrong = ""
+
+    })
+    }
     //$scope.submissions =[];
     $scope.submit = function () {
 
@@ -57,21 +76,74 @@ angular.module('translateApp')
 
             if($scope.answer[index] == returnData.data) {
                 alert('BOOM GOES THE DYNAMITE. You got that one right')
+                totalpass++
+                best10.push($scope.answer[index])
                 console.log('correcto')
             } else if (charCounter == 1) {
                 alert('mostly right, you were one character off. The correct word was ' + returnData.data)
+                best10.push($scope.answer[index])
+                totalpass++
             } 
             else {
                 console.log('incorrecto')
                 alert('WRONG. The right answer was ' + returnData.data)
+                worst10.push($scope.answer[index])
                 wrongCount++
+                totalfail++
                 if (wrongCount === 3) {
-                    alert('u suck so fucking much')
+                    alert('sorry, you lose')
                     window.location.reload()
                 }
             }
+
+            if (id) {
+                statobj = {
+                    id: id,
+                    totalpassed : totalpass,
+                    totalfailed : totalfail,
+                    bestten : best10,
+                    worstten : worst10
+                }
+            }
+            else {
+        statobj = {
+            totalpassed : totalpass,
+            totalfailed : totalfail,
+            bestten : best10,
+            worstten : worst10
+         }
+     }
+
+             $http.post('/givetodb', statobj)
+        .then(function(returnData) { 
+            id = returnData.data._id
+            console.log(id)
+            console.log(returnData)
+
+            $scope.totalwordsright = returnData.data.totalpassed
+            $scope.totalwordswrong = returnData.data.totalfailed
+            $scope.wordsright = returnData.data.bestten
+            $scope.wordswrong = returnData.data.worstten
+        })
+
         })
     charCounter = 0
+
+
+    // statobj = {
+    //     totalpassed : 5,
+    //     totalfailed : totalfail,
+    //     bestten : best10,
+    //     worstten : worst10
+
+    // }
+
+
+
+
+    
+
+
     }
         // if ($scope.langSelect == 'es') {
         //     console.log($scope.answer)
